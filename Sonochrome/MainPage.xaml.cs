@@ -268,5 +268,36 @@ namespace Sonochrome
                     });
                 }
             }
+
+            internal void sldBrightness_ValueChanged(Object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+            {
+                try
+                {
+                    bool succeeded = m_mediaCaptureMgr.VideoDeviceController.Brightness.TrySetValue(sldBrightness.Value);
+                    if (!succeeded)
+                    {
+                        //ShowStatusMessage("Set Brightness failed");
+                    }
+                }
+                catch (Exception exception)
+                {
+                    //ShowExceptionMessage(exception);
+                }
+            }
+            internal void sldContrast_ValueChanged(Object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+            {
+                try
+                {
+                    bool succeeded = m_mediaCaptureMgr.VideoDeviceController.Contrast.TrySetValue(sldContrast.Value);
+                    if (!succeeded)
+                    {
+                        //ShowStatusMessage("Set Contrast failed");
+                    }
+                }
+                catch (Exception exception)
+                {
+                    //ShowExceptionMessage(exception);
+                }
+            }
     }
 }
