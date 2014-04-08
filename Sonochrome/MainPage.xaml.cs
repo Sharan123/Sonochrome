@@ -19,6 +19,7 @@ using Windows.Storage.Streams;
 using Windows.Media.MediaProperties;
 using Windows.Media.Capture;
 
+
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Sonochrome
@@ -28,6 +29,7 @@ namespace Sonochrome
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        
         C2n temp;
         HelperColor hc;
         WriteableBitmap slika;
@@ -40,7 +42,14 @@ namespace Sonochrome
 
         public MainPage()
         {
+            Init_Vars();
             this.InitializeComponent();
+        }
+
+        private void Init_Vars()
+        {
+            temp = new C2n();
+            temp.initRGB_HSL();
         }
 
         private String Color2Hex(Color c)
@@ -168,9 +177,11 @@ namespace Sonochrome
             ie_prop.Subtype = "JPEG";
 
             
+                /*Need to fix when it breaks cause of fast taping to take the image SystemExeption*/
             await m_mediaCaptureMgr.CapturePhotoToStreamAsync(ie_prop,i_rs);
 
-            
+                /*This fuckign line is so important , or else WB trows exeptions all round the house */
+            i_rs.Seek(0);
 
             /* Losing the aspect ratio because we set both decode pixel width and heigth  */
             // if u want bitmap image
@@ -182,10 +193,16 @@ namespace Sonochrome
             */
             /* Now to change the bitmapimage to writeablebitmap image*/
             
-            WriteableBitmap wb = new WriteableBitmap((int)previewElement1.Width, (int)previewElement1.Height);
+
+                //wHERE the hell is a WriteableBitmap constructor from BitmapImage
+                //BitmapImage bi = new BitmapImage();
             
+                //await bi.SetSourceAsync(i_rs);
+            WriteableBitmap wb = new WriteableBitmap((int)previewElement1.ActualWidth,(int)previewElement1.ActualHeight);
+            
+                //TODO go direct to writeablebitmap if possible
             //wb.SetSource(i_rs);
-            wb.SetSource(i_rs);
+            await wb.SetSourceAsync(i_rs);
             
             /* Now we need to pull out the pixels (using writeablebitmapEX class) 
              pulling out every 9th pixel but none on the edges so thats 9x9=81 pixels for a 90x90 square
@@ -194,25 +211,45 @@ namespace Sonochrome
             // 180 is both left and top from both canvas and capture element
 
             Dictionary<String, int> mapa = new Dictionary<string, int>();
-            Dictionary<HelperColor, int> mapa_hc=new Dictionary<HelperColor,int>();
-            // TODO fix rgb_array null exception
+            
+                //For debuging purposes    
+                //Dictionary<HelperColor, int> mapa_hc=new Dictionary<HelperColor,int>();
+            
             for (int i = 9; i  < 90; i=i+9)
                 for (int j = 9; j < 90; j = j + 9)
                 {
-                    int l1 = (i - 9) / 9;
-                    int l2 = (j - 9) / 9;
-                    Color tc = wb.GetPixel(180+i,180+j);
-                    rgb_array[l1, l2] = new Color();
+                    
+                    // TODO FIX wb.getpixel returning null ?!
+
+                    rgb_array[(i - 9) / 9, (j - 9) / 9] = wb.GetPixel(180 + i, 180 + j);
                 }
-            for (int i = 0; i < 9; i = i + 1)
-                for (int j = 9; j < 9; j = j + 1)
+            for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
                 {
                     HelperColor hc=temp.clr_name(Color2Hex(rgb_array[i,j]));
-                    mapa_hc[hc]++;
+                    //mapa_hc[hc]++;
+                    if (!mapa.ContainsKey(hc.name_shade))
+                        mapa.Add(hc.name_shade, 1);
+                    else
                     mapa[hc.name_shade]++;
                 }
 
-           
+                /*To search for the shadename that ocured the most */
+
+                /*Benchmark estimated to 125+ ms which is allot for iteraating thorugh map *
+                 * TODO create an array variable for this kind of stuff 
+                 */
+            String placeholder = "";
+            int max_=0;
+                foreach (KeyValuePair<String,int> kv in mapa)
+                {
+                    if (max_<kv.Value)
+                    {
+                        max_ = kv.Value;
+                        placeholder = kv.Key;
+                    }
+                }
+            textblock1.Text = placeholder;
             
         
         }

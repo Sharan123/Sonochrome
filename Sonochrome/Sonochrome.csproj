@@ -133,10 +133,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Color2Name">
+    <Reference Include="Color2Name, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Color2Name\Color2Name\bin\Debug\Color2Name.dll</HintPath>
     </Reference>
-    <Reference Include="WriteableBitmapEx.WinRT">
+    <Reference Include="WriteableBitmapEx.WinRT, Version=1.0.9.0, Culture=neutral, PublicKeyToken=50375ca6144f1c69, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Downloads\WriteableBitmapEx_v1.0.9.0\WriteableBitmapEx_v1.0.9.0\WinRT\WriteableBitmapEx.WinRT.dll</HintPath>
     </Reference>
   </ItemGroup>
