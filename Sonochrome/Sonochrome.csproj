@@ -121,6 +121,45 @@
     <Content Include="Assets\SmallLogo.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Notes\Guitar\01-C4.mp3" />
+    <Content Include="Notes\Guitar\01-C4.wav" />
+    <Content Include="Notes\Guitar\02-C#4.mp3" />
+    <Content Include="Notes\Guitar\02-C#4.wav" />
+    <Content Include="Notes\Guitar\03-D4.mp3" />
+    <Content Include="Notes\Guitar\03-D4.wav" />
+    <Content Include="Notes\Guitar\04-D#4.mp3" />
+    <Content Include="Notes\Guitar\04-D#4.wav" />
+    <Content Include="Notes\Guitar\05-E4.mp3" />
+    <Content Include="Notes\Guitar\05-E4.wav" />
+    <Content Include="Notes\Guitar\06-F4.mp3" />
+    <Content Include="Notes\Guitar\06-F4.wav" />
+    <Content Include="Notes\Guitar\07-F#4.mp3" />
+    <Content Include="Notes\Guitar\07-F#4.wav" />
+    <Content Include="Notes\Guitar\08-G4.mp3" />
+    <Content Include="Notes\Guitar\08-G4.wav" />
+    <Content Include="Notes\Guitar\09-G#4.mp3" />
+    <Content Include="Notes\Guitar\09-G#4.wav" />
+    <Content Include="Notes\Guitar\10-A4.mp3" />
+    <Content Include="Notes\Guitar\10-A4.wav" />
+    <Content Include="Notes\Guitar\11-A#4.mp3" />
+    <Content Include="Notes\Guitar\11-A#4.wav" />
+    <Content Include="Notes\Guitar\12-B4.mp3" />
+    <Content Include="Notes\Guitar\12-B4.wav" />
+    <Content Include="Notes\Guitar\13-C5.mp3" />
+    <Content Include="Notes\Guitar\13-C5.wav" />
+    <Content Include="Notes\Piano\01-C4.mp3" />
+    <Content Include="Notes\Piano\02-C#4.mp3" />
+    <Content Include="Notes\Piano\03-D4.mp3" />
+    <Content Include="Notes\Piano\04-D#4.mp3" />
+    <Content Include="Notes\Piano\05-E4.mp3" />
+    <Content Include="Notes\Piano\06-F4.mp3" />
+    <Content Include="Notes\Piano\07-F#4.mp3" />
+    <Content Include="Notes\Piano\08-G4.mp3" />
+    <Content Include="Notes\Piano\09-G#4.mp3" />
+    <Content Include="Notes\Piano\10-A4.mp3" />
+    <Content Include="Notes\Piano\11-A#4.mp3" />
+    <Content Include="Notes\Piano\12-B4.mp3" />
+    <Content Include="Notes\Piano\13-C5.mp3" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -142,6 +181,7 @@
       <HintPath>..\..\..\..\..\Downloads\WriteableBitmapEx_v1.0.9.0\WriteableBitmapEx_v1.0.9.0\WinRT\WriteableBitmapEx.WinRT.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

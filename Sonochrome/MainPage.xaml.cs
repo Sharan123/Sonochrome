@@ -168,7 +168,7 @@ namespace Sonochrome
 
 
             //m_mediaCaptureMgr.CapturePhotoToStreamAsync
-
+            captureclr.IsEnabled = false;
             IRandomAccessStream i_rs = new InMemoryRandomAccessStream();
             
             ImageEncodingProperties ie_prop = new ImageEncodingProperties();
@@ -177,12 +177,21 @@ namespace Sonochrome
             ie_prop.Subtype = "JPEG";
 
             
+                
                 /*Need to fix when it breaks cause of fast taping to take the image SystemExeption*/
-            await m_mediaCaptureMgr.CapturePhotoToStreamAsync(ie_prop,i_rs);
-
+            try
+            {
+                await m_mediaCaptureMgr.CapturePhotoToStreamAsync(ie_prop, i_rs);
+            }
+            catch(Exception exp)
+            {
+                // TODO implement error functions
+            }
+            
+            
                 /*This fuckign line is so important , or else WB trows exeptions all round the house */
             i_rs.Seek(0);
-
+            
             /* Losing the aspect ratio because we set both decode pixel width and heigth  */
             // if u want bitmap image
             /*
@@ -213,7 +222,7 @@ namespace Sonochrome
             Dictionary<String, int> mapa = new Dictionary<string, int>();
             
                 //For debuging purposes    
-                //Dictionary<HelperColor, int> mapa_hc=new Dictionary<HelperColor,int>();
+                Dictionary<HelperColor, int> mapa_hc=new Dictionary<HelperColor,int>();
             
             for (int i = 9; i  < 90; i=i+9)
                 for (int j = 9; j < 90; j = j + 9)
@@ -227,7 +236,12 @@ namespace Sonochrome
                 for (int j = 0; j < 9; j++)
                 {
                     HelperColor hc=temp.clr_name(Color2Hex(rgb_array[i,j]));
-                    //mapa_hc[hc]++;
+                    if (!mapa_hc.ContainsKey(hc))
+                    {
+
+                    }
+                    else
+                    mapa_hc[hc]++;
                     if (!mapa.ContainsKey(hc.name_shade))
                         mapa.Add(hc.name_shade, 1);
                     else
@@ -250,8 +264,8 @@ namespace Sonochrome
                     }
                 }
             textblock1.Text = placeholder;
-            
-        
+
+            captureclr.IsEnabled = true;
         }
 
             public async void Failed(Windows.Media.Capture.MediaCapture currentCaptureObject, MediaCaptureFailedEventArgs currentFailure)
