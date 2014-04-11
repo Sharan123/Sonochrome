@@ -8,7 +8,9 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock x:Name="textblock1" HorizontalAlignment="Left" Margin="153,164,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="31" Width="161" FontSize="24" RenderTransformOrigin="0.547,0.484" Grid.Column="1" Grid.Row="1"/>
+        <MediaElement x:Name="m_mediael" AutoPlay="True" Visibility="Collapsed">
+         </MediaElement>
+                <TextBlock x:Name="textblock1" HorizontalAlignment="Left" Margin="153,164,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="31" Width="161" FontSize="24" RenderTransformOrigin="0.547,0.484" Grid.Column="1" Grid.Row="1"/>
         <Button x:Name="button1" Content="Capture and preview" HorizontalAlignment="Left" Margin="1102,226,0,0" VerticalAlignment="Top" Height="80" Width="257" Click="button1_Click"/>
         <StackPanel Orientation="Horizontal" Margin="80,194,689,465">
             <TextBlock TextWrapping="Wrap" Text="Brightness"  Margin="0,49,10,47"/>

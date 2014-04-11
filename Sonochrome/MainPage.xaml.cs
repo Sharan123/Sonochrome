@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Color2Name;
+using Color2Uri;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage.Streams;
 using Windows.Media.MediaProperties;
@@ -31,6 +32,9 @@ namespace Sonochrome
     {
         
         C2n temp;
+        Color2Uri.Color2Uri c2u;
+        IRandomAccessStream i_rs;
+        ImageEncodingProperties ie_prop;
         HelperColor hc;
         WriteableBitmap slika;
         private Windows.Media.Capture.MediaCapture m_mediaCaptureMgr;
@@ -42,14 +46,31 @@ namespace Sonochrome
 
         public MainPage()
         {
-            Init_Vars();
+            Init_Vars_NoComp();
             this.InitializeComponent();
+            Init_Vars_WithComp();
         }
 
-        private void Init_Vars()
+        private void Init_Vars_NoComp()
         {
+            /* Puting default instrument piano - user will be able to change it later */
+            c2u = new Color2Uri.Color2Uri("Piano");
+            // No need to call init since the constructor does it , need to tweak methods from public to private
+            //c2u.Init();
             temp = new C2n();
             temp.initRGB_HSL();
+
+            i_rs = new InMemoryRandomAccessStream();
+
+            ie_prop = new ImageEncodingProperties();
+            
+        }
+
+        private void Init_Vars_WithComp()
+        {
+            ie_prop.Width = (uint)previewElement1.Width;
+            ie_prop.Height = (uint)previewElement1.Height;
+            ie_prop.Subtype = "JPEG";
         }
 
         private String Color2Hex(Color c)
@@ -169,14 +190,7 @@ namespace Sonochrome
 
             //m_mediaCaptureMgr.CapturePhotoToStreamAsync
             captureclr.IsEnabled = false;
-            IRandomAccessStream i_rs = new InMemoryRandomAccessStream();
-            
-            ImageEncodingProperties ie_prop = new ImageEncodingProperties();
-            ie_prop.Width = (uint)previewElement1.Width;
-            ie_prop.Height = (uint)previewElement1.Height;
-            ie_prop.Subtype = "JPEG";
-
-            
+              
                 
                 /*Need to fix when it breaks cause of fast taping to take the image SystemExeption*/
             try
@@ -238,7 +252,7 @@ namespace Sonochrome
                     HelperColor hc=temp.clr_name(Color2Hex(rgb_array[i,j]));
                     if (!mapa_hc.ContainsKey(hc))
                     {
-
+                        mapa_hc.Add(hc, 1);
                     }
                     else
                     mapa_hc[hc]++;
@@ -266,6 +280,11 @@ namespace Sonochrome
             textblock1.Text = placeholder;
 
             captureclr.IsEnabled = true;
+
+                // Throws error , cannot convert windows smth uri to smth 
+            //m_mediael.Source = this.c2u.GetSoundUri(placeholder);
+            //m_mediael.Play();
+            
         }
 
             public async void Failed(Windows.Media.Capture.MediaCapture currentCaptureObject, MediaCaptureFailedEventArgs currentFailure)
